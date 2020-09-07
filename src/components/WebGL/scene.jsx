@@ -8,14 +8,14 @@ import { GUI } from "three/examples/jsm/libs/dat.gui.module";
 import tvStand from "../../assests/objects/tvStand.glb"; // GLB FILE
 import tv from "../../assests/objects/tv.glb"; // GLB FILE
 import diningTable from "../../assests/objects/diningTable.glb"; // GLB FILE
-import sofa from "../../assests/objects/sofa.glb"; // GLB FILE
-import singleSofa from "../../assests/objects/singleSofa.glb"; // GLB FILE
+import sofa from "../../assests/objects/sofaLow.glb"; // GLB FILE
+import singleSofa from "../../assests/objects/armChair.glb"; // GLB FILE
 import table from "../../assests/objects/table.glb"; // GLB FILE
 import gamingTable from "../../assests/objects/gamingTable.glb"; // GLB FILE
 import chair from "../../assests/objects/chair.glb"; // GLB FILE
 
 import ceramic from "../../assests/textures/ceramic.jpg";
-import concrete from "../../assests/textures/concrete.JPG";
+import concrete from "../../assests/textures/wall.jpg";
 
 const style = {
   height: 500,
@@ -24,15 +24,15 @@ const style = {
 class WebGL extends Component {
   state = {
     singleSofaLeft: {
-      posX: -0.28,
-      posZ: 1.46,
-      rotY: 2.82,
+      posX: -22.82,
+      posZ: -8.08,
+      rotY: 2.69,
     },
 
     singleSofaRight: {
-      posX: 30.94,
-      posZ: -8.95,
-      rotY: 3.47,
+      posX: 24,
+      posZ: -8.08,
+      rotY: 3.6,
     },
 
     table: {
@@ -82,6 +82,8 @@ class WebGL extends Component {
   sceneSetup = () => {
     this.scene = new THREE.Scene();
 
+    this.scene.background = new THREE.Color(0x000000);
+
     this.camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -95,6 +97,7 @@ class WebGL extends Component {
 
     this.controls = new OrbitControls(this.camera, this.mount);
     this.renderer = new THREE.WebGLRenderer();
+
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.mount.appendChild(this.renderer.domElement);
   };
@@ -108,20 +111,31 @@ class WebGL extends Component {
       chair,
     } = this.state;
 
+    const gui = new GUI();
+
+    this.getFog();
+
     // adding sphere
     const sphereMaterial = this.getMaterial("phong", "rgb(255, 255, 255)");
     const sphere = this.getSphere(sphereMaterial, 1);
 
-    // adding  plane
+    // const sphere2 = this.getSphere(sphereMaterial, 2);
 
-    const planeMaterial = this.getMaterial("standard", "rgb(237, 237, 237)");
+    // sphere2.position.x = 0;
+    // sphere2.position.y = 10;
+    // sphere2.position.z = 0;
+
+    // this.scene.add(sphere2);
+
+    // adding  plane
+    const planeMaterial = this.getMaterial("standard", "rgb(70, 70, 70)");
     var planeTexture = new THREE.TextureLoader().load(ceramic);
     planeTexture.wrapS = THREE.RepeatWrapping;
     planeTexture.wrapT = THREE.RepeatWrapping;
-    planeTexture.repeat.set(4, 4);
+    planeTexture.repeat.set(80, 80);
 
     planeMaterial.map = planeTexture;
-    const plane = this.getPlane(planeMaterial, 80);
+    const plane = this.getPlane(planeMaterial, 900);
     plane.rotation.x = Math.PI / 2;
 
     this.scene.add(plane);
@@ -147,20 +161,55 @@ class WebGL extends Component {
 
     // adding spotLight
     const lightLeft = new THREE.PointLight(0x87bbff, 1, 50);
+    lightLeft.castShadow = true;
+
     this.scene.add(lightLeft);
     lightLeft.position.x = -9.6;
     lightLeft.position.y = 17;
     lightLeft.position.z = 26.7;
+
+    lightLeft.intensity = 6.1;
+    lightLeft.distance = 83;
+
     lightLeft.add(sphere);
 
-    const gui = new GUI();
-    gui.add(lightLeft.position, "x", -30, 30).name("x");
-    gui.add(lightLeft.position, "y", -30, 30).name("y");
-    gui.add(lightLeft.position, "z", -30, 30).name("z");
+    gui.add(lightLeft.position, "x", -30, 60).name("x");
+    gui.add(lightLeft.position, "y", -60, 60).name("y");
+    gui.add(lightLeft.position, "z", -60, 60).name("z");
 
     gui.add(lightLeft, "intensity", 0, 30).name("intensity");
     gui.add(lightLeft, "distance", 0, 150).name("distance");
 
+    // rectAreLight
+    const rectLight = this.getRectAreaLight();
+    rectLight.rotation.set(5, 1.55, 1.3);
+    rectLight.position.set(34.27, 5, 18);
+
+    this.scene.add(rectLight);
+
+    var rectLightMesh = new THREE.Mesh(
+      new THREE.PlaneBufferGeometry(),
+      new THREE.MeshBasicMaterial({ side: THREE.BackSide, color: 0xff5cff })
+    );
+    rectLightMesh.scale.x = rectLight.width;
+    rectLightMesh.scale.y = rectLight.height;
+
+    rectLight.add(rectLightMesh);
+
+    var rectLightMeshBack = new THREE.Mesh(
+      new THREE.PlaneBufferGeometry(),
+      new THREE.MeshBasicMaterial({ color: 0xffffff })
+    );
+    rectLightMesh.add(rectLightMeshBack);
+
+    // gui.add(lightLeft.position, "x", -30, 30).name("x");
+    // gui.add(lightLeft.position, "y", -30, 30).name("y");
+    // gui.add(lightLeft.position, "z", -30, 30).name("z");
+
+    // gui.add(lightLeft, "intensity", 0, 30).name("intensity");
+    // gui.add(lightLeft, "distance", 0, 150).name("distance");
+
+    // the sun ( helper lights)
     const lights = [];
     lights[0] = new THREE.PointLight(0xffffff, 1, 0);
     lights[1] = new THREE.PointLight(0xffffff, 1, 0);
@@ -175,6 +224,19 @@ class WebGL extends Component {
     this.scene.add(lights[2]);
   };
 
+  // fogging
+  getFog = () => {
+    var enableFog = true;
+
+    if (enableFog) {
+      this.scene.fog = new THREE.FogExp2("rgba(0,0 ,0 , 0.01)", 0.0025);
+    }
+
+    const gui = new GUI();
+
+    gui.add(this.scene.fog, "density", 0, 0.5).step(0.001);
+  };
+
   // object creation
   getPlane = (material, size) => {
     var geometry = new THREE.PlaneGeometry(size, size);
@@ -185,29 +247,32 @@ class WebGL extends Component {
     return plane;
   };
 
-  getBox = (w, h, d, material) => {
+  getBox = (w, h, d, materials) => {
     var geometry = new THREE.BoxGeometry(w, h, d);
 
     var texture = new THREE.TextureLoader().load(concrete);
 
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(4, 4);
+    texture.repeat.set(1, 1);
+
+    texture.flipY = true;
 
     var material = new THREE.MeshPhongMaterial({
       // flatShading: true,
       wireframe: false,
-      color: 0xeb1c1c,
+      color: 0x212121,
       polygonOffset: true,
       polygonOffsetFactor: 1, // positive value pushes polygon further away
       polygonOffsetUnits: 1,
       side: THREE.DoubleSide,
-
       map: texture,
+      bumpMap: texture,
+      bumpScale: 0.2,
     });
 
     var mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     return mesh;
   };
 
@@ -259,6 +324,34 @@ class WebGL extends Component {
     light.shadow.bias = 0.001;
 
     return light;
+  };
+
+  getRectAreaLight = () => {
+    const width = 10;
+    const height = 30;
+    const intensity = 10;
+    const rectLight = new THREE.RectAreaLight(
+      0xff5cff,
+      intensity,
+      width,
+      height
+    );
+
+    // rectLight.position.z = 26;
+    // rectLight.rotation.x = 0.8;
+
+    // const gui = new GUI();
+    // gui.add(rectLight.position, "x", -16, 60).name("ScaleX").step(0.01);
+    // gui.add(rectLight.position, "y", -16, 60).name("ScaleX").step(0.01);
+    // gui.add(rectLight.position, "z", -16, 60).name("ScaleX").step(0.01);
+
+    // gui.add(rectLight.rotation, "x", 0, 6).name("ScaleX").step(0.01);
+    // gui.add(rectLight.rotation, "y", 0, 6).name("rotY").step(0.01);
+    // gui.add(rectLight.rotation, "z", 0, 6).name("ScaleX").step(0.01);
+
+    rectLight.lookAt(0, 0, 0);
+
+    return rectLight;
   };
 
   // objects
@@ -368,26 +461,26 @@ class WebGL extends Component {
         this.gltf = sofa.scene;
         this.scene.add(sofa.scene);
 
-        sofa.scene.position.x = 2.39;
-        sofa.scene.position.y = 0;
-        sofa.scene.position.z = 3.04;
+        sofa.scene.position.x = 0.44;
+        sofa.scene.position.y = 4.6;
+        sofa.scene.position.z = -4.11;
 
-        sofa.scene.scale.x = 0.009;
-        sofa.scene.scale.y = 0.009;
-        sofa.scene.scale.z = 0.009;
+        sofa.scene.scale.x = 14;
+        sofa.scene.scale.y = 14;
+        sofa.scene.scale.z = 14;
 
-        sofa.scene.rotation.y = 2.69;
+        sofa.scene.rotation.y = 3.15;
 
         // const gui = new GUI();
-        // gui.add(sofa.scene.scale, "x", -0.009, 0.009).name("scal");
-        // gui.add(sofa.scene.scale, "y", -0.009, 0.009).name("scal");
-        // gui.add(sofa.scene.scale, "z", -0.009, 0.009).name("scal");
+        // gui.add(sofa.scene.scale, "x", -15, 15).name("scal");
+        // gui.add(sofa.scene.scale, "y", -15, 15).name("scal");
+        // gui.add(sofa.scene.scale, "z", -15, 15).name("scal");
 
         // gui.add(sofa.scene.position, "x", -30, 30).name("scal").step(0.01);
         // gui.add(sofa.scene.position, "y", -30, 30).name("scal").step(0.01);
         // gui.add(sofa.scene.position, "z", -30, 30).name("scal").step(0.01);
 
-        // gui.add(sofa.scene.rotation, "y", -3, 3).name("scal").step(0.01);
+        // gui.add(sofa.scene.rotation, "y", -3, 6).name("scal").step(0.01);
       },
       undefined,
 
@@ -415,31 +508,31 @@ class WebGL extends Component {
         singleSofa.scene.position.y = 0;
         singleSofa.scene.position.z = objData.posZ;
 
-        singleSofa.scene.scale.x = 0.009;
-        singleSofa.scene.scale.y = 0.009;
-        singleSofa.scene.scale.z = 0.009;
+        singleSofa.scene.scale.x = 1.2;
+        singleSofa.scene.scale.y = 1.1;
+        singleSofa.scene.scale.z = 1;
 
         singleSofa.scene.rotation.y = objData.rotY;
 
         // const gui = new GUI();
-        // gui.add(singleSofa.scene.scale, "x", -0.009, 0.009).name("scal");
-        // gui.add(singleSofa.scene.scale, "y", -0.009, 0.009).name("scal");
-        // gui.add(singleSofa.scene.scale, "z", -0.009, 0.009).name("scal");
+        // gui.add(singleSofa.scene.scale, "x", 0, 10).name("ScaleX");
+        // gui.add(singleSofa.scene.scale, "y", 0, 10).name("ScaleY");
+        // gui.add(singleSofa.scene.scale, "z", 0, 10).name("ScaleZ");
 
         // gui
         //   .add(singleSofa.scene.position, "x", -40, 40)
-        //   .name("scal")
+        //   .name("PosX")
         //   .step(0.01);
         // gui
         //   .add(singleSofa.scene.position, "y", -40, 40)
-        //   .name("scal")
+        //   .name("PosY")
         //   .step(0.01);
         // gui
         //   .add(singleSofa.scene.position, "z", -40, 40)
-        //   .name("scal")
+        //   .name("PosZ")
         //   .step(0.01);
 
-        // gui.add(singleSofa.scene.rotation, "y", -6, 6).name("scal").step(0.01);
+        // gui.add(singleSofa.scene.rotation, "y", -6, 6).name("RotY").step(0.01);
       },
       undefined,
 
