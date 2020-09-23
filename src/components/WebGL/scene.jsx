@@ -16,6 +16,13 @@ import gamingTable from "../../assests/objects/gamingTable.glb"; // GLB FILE
 import chair from "../../assests/objects/chair.glb"; // GLB FILE
 import box from "../../assests/objects/box.glb"; // GLB FILE
 import home from "../../assests/objects/homeThreeEditor.glb"; // GLB FILE
+import flowerPot from "../../assests/objects/flowerPot.glb"; // GLB FILE
+import flowerPotDesigned from "../../assests/objects/flowerPotDesigned.glb"; // GLB FILE
+import painting1 from "../../assests/objects/painting1.glb"; // GLB FILE
+import painting2 from "../../assests/objects/painting2.glb"; // GLB FILE
+import cabinetFull from "../../assests/objects/cabinetFull.glb"; // GLB FILE
+import sink from "../../assests/objects/sink.glb"; // GLB FILE
+import fridge from "../../assests/objects/fridge.glb"; // GLB FILE
 
 import ceramic from "../../assests/textures/ceramic.jpg";
 import concrete from "../../assests/textures/wall.jpg";
@@ -28,15 +35,17 @@ const style = {
 class WebGL extends Component {
   state = {
     singleSofaLeft: {
-      posX: -22.82,
-      posZ: -8.08,
-      rotY: 2.69,
+      posX: -10.089,
+      posY: 0,
+      posZ: 13.729,
+      rotY: 6.765,
     },
 
     singleSofaRight: {
-      posX: 24,
-      posZ: -8.08,
-      rotY: 3.6,
+      posX: -2.164,
+      posY: 0,
+      posZ: 13.702,
+      rotY: 5.696,
     },
 
     table: {
@@ -67,6 +76,116 @@ class WebGL extends Component {
       posY: 0,
       posZ: 20.53,
       rotY: 1.13,
+    },
+
+    diningTable1: {
+      posX: -2.105,
+      posY: 0.4,
+      posZ: -1.342,
+      rotY: 4.753,
+    },
+    diningTable2: {
+      posX: -2.187,
+      posY: 0.4,
+      posZ: -3.377,
+      rotY: 4.753,
+    },
+    flowerPot1: {
+      posX: -3.86,
+      posY: 0.8,
+      posZ: -7.844,
+      scal: 5,
+      rotY: 0.739,
+    },
+    flowerPot2: {
+      posX: 1.392,
+      posY: 0.8,
+      posZ: 17.779,
+      scal: 5,
+      rotY: 3.51,
+    },
+    flowerPot3: {
+      posX: -12.025,
+      posY: 0.8,
+      posZ: 17.779,
+      scal: 5,
+      rotY: 1.936,
+    },
+    flowerPot4: {
+      posX: -5.873,
+      posY: 0.8,
+      posZ: 8.372,
+      scal: 5,
+      rotY: 1.499,
+    },
+
+    painting1: {
+      posX: -6.795,
+      posY: 2.892,
+      posZ: 8.521,
+      scal: 2,
+      rotY: 1.577,
+    },
+
+    painting2: {
+      posX: 0.131,
+      posY: 2.056,
+      posZ: -8.583,
+      scal: 3,
+      rotY: 0.015,
+    },
+
+    painting3: {
+      posX: -10.956,
+      posY: 2.191,
+      posZ: -3.857,
+      scal: 3,
+      rotY: 1.6,
+    },
+
+    paintingBig1: {
+      posX: -4.78,
+      posY: 3.271,
+      posZ: -2.879,
+      scal: 0.06,
+      rotY: 0.015,
+    },
+
+    cabinetFull: {
+      posX: -5.094,
+      posY: 0.45,
+      posZ: -8.498,
+      scal: 25,
+      rotY: 4.727,
+    },
+    sink: {
+      posX: -12.52,
+      posY: 0.373,
+      posZ: 8.35,
+      scal: 0.005,
+      rotY: 1.614,
+    },
+    fridge: {
+      posX: -5.783,
+      posY: 2.459,
+      posZ: -0.208,
+      scal: 0.5,
+      rotY: 3.132,
+    },
+
+    flowerPotDesigned1: {
+      posX: 4.89,
+      posY: 0.373,
+      posZ: 4.33,
+      scal: 0.018,
+      rotY: 2.004,
+    },
+    flowerPotDesigned2: {
+      posX: -10.076,
+      posY: 0.37,
+      posZ: -7.524,
+      scal: 0.009,
+      rotY: 5.06,
     },
   };
 
@@ -113,6 +232,21 @@ class WebGL extends Component {
       table,
       gamingTable,
       chair,
+      diningTable1,
+      diningTable2,
+      flowerPot1,
+      flowerPot2,
+      flowerPot3,
+      flowerPot4,
+      painting1,
+      painting2,
+      painting3,
+      paintingBig1,
+      cabinetFull,
+      sink,
+      fridge,
+      flowerPotDesigned1,
+      flowerPotDesigned2,
     } = this.state;
 
     // adding fog
@@ -151,18 +285,38 @@ class WebGL extends Component {
     // plane.add(box);
 
     //adding objects
+    this.getHome();
+
     this.getTv();
     this.getTvStand();
-    // this.getDiningTable();
+    this.getDiningTable(diningTable1);
+    this.getDiningTable(diningTable2);
     this.getSofa();
-    // this.getSingleSofa(singleSofaLeft);
-    // this.getSingleSofa(singleSofaRight);
+    this.getSingleSofa(singleSofaLeft);
+    this.getSingleSofa(singleSofaRight);
     // this.getTable(table);
     // this.getGamingTable(gamingTable);
     // this.getChair(chair);
     // this.getBoxObj();
+    this.getFlowerPot(flowerPot1);
+    this.getFlowerPot(flowerPot2);
+    this.getFlowerPot(flowerPot3);
+    this.getFlowerPot(flowerPot4);
 
-    this.getHome();
+    this.getFlowerPotDesigned(flowerPotDesigned1);
+    this.getFlowerPotDesigned(flowerPotDesigned2);
+
+    this.getPainting1(painting1);
+    this.getPainting1(painting2);
+    this.getPainting1(painting3);
+
+    this.getPainting2(paintingBig1);
+
+    this.getCabinetFull(cabinetFull);
+
+    this.getSink(sink);
+
+    this.getFridge(fridge);
 
     // adding spotLight
     const lightLeft = new THREE.PointLight(0xffffff, 1, 50);
@@ -177,7 +331,7 @@ class WebGL extends Component {
     lightLeft.distance = 20;
 
     lightLeft.add(sphere);
-
+    // const gui = new GUI();
     // gui.add(lightLeft.position, "x", -30, 60).name("x");
     // gui.add(lightLeft.position, "y", -60, 60).name("y");
     // gui.add(lightLeft.position, "z", -60, 60).name("z");
@@ -567,7 +721,7 @@ class WebGL extends Component {
     );
   };
 
-  getDiningTable = () => {
+  getDiningTable = (objData) => {
     this.loader = new GLTFLoader();
 
     this.loader.load(
@@ -577,31 +731,58 @@ class WebGL extends Component {
         this.gltf = diningTable.scene;
         this.scene.add(diningTable.scene);
 
-        diningTable.scene.position.x = 24.5;
-        diningTable.scene.position.y = 0;
-        diningTable.scene.position.z = 25;
+        // diningTable.scene.position.x = -2.105;
+        // diningTable.scene.position.y = 0.4;
+        // diningTable.scene.position.z = -1.342;
 
-        diningTable.scene.scale.x = 10;
-        diningTable.scene.scale.y = 10;
-        diningTable.scene.scale.z = 10;
+        // diningTable.scene.scale.x = 1.7;
+        // diningTable.scene.scale.y = 1.7;
+        // diningTable.scene.scale.z = 1.7;
+
+        // diningTable.scene.rotation.y = 4.753;
+
+        diningTable.scene.position.x = objData.posX;
+        diningTable.scene.position.y = objData.posY;
+        diningTable.scene.position.z = objData.posZ;
+
+        diningTable.scene.scale.x = 1.7;
+        diningTable.scene.scale.y = 1.7;
+        diningTable.scene.scale.z = 1.7;
+
+        diningTable.scene.rotation.y = objData.rotY;
 
         // const gui = new GUI();
-        // gui.add(diningTable.scene.scale, "x", -10, 10).name("scal");
-        // gui.add(diningTable.scene.scale, "y", -10, 10).name("scal");
-        // gui.add(diningTable.scene.scale, "z", -10, 10).name("scal");
 
         // gui
         //   .add(diningTable.scene.position, "x", -30, 30)
-        //   .name("scal")
-        //   .step(0.01);
+        //   .name("diningTable_pos_x")
+        //   .step(0.001);
         // gui
         //   .add(diningTable.scene.position, "y", -30, 30)
-        //   .name("scal")
-        //   .step(0.01);
+        //   .name("diningTable_pos_y")
+        //   .step(0.001);
         // gui
         //   .add(diningTable.scene.position, "z", -30, 30)
-        //   .name("scal")
-        //   .step(0.01);
+        //   .name("diningTable_pos_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(diningTable.scene.scale, "x", -10, 10)
+        //   .name("diningTable_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(diningTable.scene.scale, "y", -10, 10)
+        //   .name("diningTable_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(diningTable.scene.scale, "z", -10, 10)
+        //   .name("diningTable_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(diningTable.scene.rotation, "y", 0, 8)
+        //   .name("diningTable_rotation_y")
+        //   .step(0.001);
       },
       undefined,
 
@@ -631,38 +812,38 @@ class WebGL extends Component {
 
         sofa.scene.rotation.y = 6.28;
 
-        const gui = new GUI();
+        // const gui = new GUI();
 
-        gui
-          .add(sofa.scene.position, "x", -20, 20)
-          .name("sofa_position_x")
-          .step(0.001);
-        gui
-          .add(sofa.scene.position, "y", -20, 20)
-          .name("sofa_position_y")
-          .step(0.001);
-        gui
-          .add(sofa.scene.position, "z", -20, 20)
-          .name("sofa_position_z")
-          .step(0.001);
+        // gui
+        //   .add(sofa.scene.position, "x", -20, 20)
+        //   .name("sofa_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(sofa.scene.position, "y", -20, 20)
+        //   .name("sofa_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(sofa.scene.position, "z", -20, 20)
+        //   .name("sofa_position_z")
+        //   .step(0.001);
 
-        gui
-          .add(sofa.scene.scale, "x", -10, 10)
-          .name("sofa_scale_x")
-          .step(0.001);
-        gui
-          .add(sofa.scene.scale, "y", -10, 10)
-          .name("sofa_scale_y")
-          .step(0.001);
-        gui
-          .add(sofa.scene.scale, "z", -10, 10)
-          .name("sofa_scale_z")
-          .step(0.001);
+        // gui
+        //   .add(sofa.scene.scale, "x", -10, 10)
+        //   .name("sofa_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(sofa.scene.scale, "y", -10, 10)
+        //   .name("sofa_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(sofa.scene.scale, "z", -10, 10)
+        //   .name("sofa_scale_z")
+        //   .step(0.001);
 
-        gui
-          .add(sofa.scene.rotation, "y", 0, 8)
-          .name("sofa_rotation_x")
-          .step(0.001);
+        // gui
+        //   .add(sofa.scene.rotation, "y", 0, 8)
+        //   .name("sofa_rotation_x")
+        //   .step(0.001);
       },
       undefined,
 
@@ -682,39 +863,48 @@ class WebGL extends Component {
         this.gltf = singleSofa.scene;
         this.scene.add(singleSofa.scene);
 
-        // singleSofa.scene.position.x = -1.51;
-        // singleSofa.scene.position.y = 0;
-        // singleSofa.scene.position.z = 1.74;
-
         singleSofa.scene.position.x = objData.posX;
-        singleSofa.scene.position.y = 0;
+        singleSofa.scene.position.y = objData.posY;
         singleSofa.scene.position.z = objData.posZ;
 
-        singleSofa.scene.scale.x = 1.2;
-        singleSofa.scene.scale.y = 1.1;
-        singleSofa.scene.scale.z = 1;
+        singleSofa.scene.scale.x = 0.22;
+        singleSofa.scene.scale.y = 0.22;
+        singleSofa.scene.scale.z = 0.22;
 
         singleSofa.scene.rotation.y = objData.rotY;
 
         // const gui = new GUI();
-        // gui.add(singleSofa.scene.scale, "x", 0, 10).name("ScaleX");
-        // gui.add(singleSofa.scene.scale, "y", 0, 10).name("ScaleY");
-        // gui.add(singleSofa.scene.scale, "z", 0, 10).name("ScaleZ");
 
         // gui
-        //   .add(singleSofa.scene.position, "x", -40, 40)
-        //   .name("PosX")
-        //   .step(0.01);
+        //   .add(singleSofa.scene.position, "x", -20, 20)
+        //   .name("singleSofa_PosX")
+        //   .step(0.001);
         // gui
-        //   .add(singleSofa.scene.position, "y", -40, 40)
-        //   .name("PosY")
-        //   .step(0.01);
+        //   .add(singleSofa.scene.position, "y", -20, 20)
+        //   .name("singleSofa_PosY")
+        //   .step(0.001);
         // gui
-        //   .add(singleSofa.scene.position, "z", -40, 40)
-        //   .name("PosZ")
-        //   .step(0.01);
+        //   .add(singleSofa.scene.position, "z", -20, 20)
+        //   .name("singleSofa_PosZ")
+        //   .step(0.001);
 
-        // gui.add(singleSofa.scene.rotation, "y", -6, 6).name("RotY").step(0.01);
+        // gui
+        //   .add(singleSofa.scene.scale, "x", 0, 0.8)
+        //   .name("singleSofa_ScaleX")
+        //   .step(0.001);
+        // gui
+        //   .add(singleSofa.scene.scale, "y", 0, 0.8)
+        //   .name("singleSofa_ScaleY")
+        //   .step(0.001);
+        // gui
+        //   .add(singleSofa.scene.scale, "z", 0, 0.8)
+        //   .name("singleSofa_ScaleZ")
+        //   .step(0.001);
+
+        // gui
+        //   .add(singleSofa.scene.rotation, "y", 0, 8)
+        //   .name("singleSofa_RotY")
+        //   .step(0.001);
       },
       undefined,
 
@@ -862,6 +1052,440 @@ class WebGL extends Component {
     );
   };
 
+  getFlowerPot = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      flowerPot,
+
+      (flowerPot) => {
+        this.gltf = flowerPot.scene;
+        this.scene.add(flowerPot.scene);
+
+        // singleSofa.scene.position.x = -1.51;
+        // singleSofa.scene.position.y = 0;
+        // singleSofa.scene.position.z = 1.74;
+
+        flowerPot.scene.position.x = objData.posX;
+        flowerPot.scene.position.y = objData.posY;
+        flowerPot.scene.position.z = objData.posZ;
+
+        flowerPot.scene.scale.x = objData.scal;
+        flowerPot.scene.scale.y = objData.scal;
+        flowerPot.scene.scale.z = objData.scal;
+
+        flowerPot.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(flowerPot.scene.position, "x", -40, 40)
+        //   .name("flowerPot_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPot.scene.position, "y", -40, 40)
+        //   .name("flowerPot_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPot.scene.position, "z", -40, 40)
+        //   .name("flowerPot_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(flowerPot.scene.scale, "x", -20, 20)
+        //   .name("flowerPot_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPot.scene.scale, "y", -20, 20)
+        //   .name("flowerPot_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPot.scene.scale, "z", -20, 20)
+        //   .name("flowerPot_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(flowerPot.scene.rotation, "y", -6, 6)
+        //   .name("flowerPot_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getFlowerPotDesigned = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      flowerPotDesigned,
+
+      (flowerPotDesigned) => {
+        this.gltf = flowerPotDesigned.scene;
+        this.scene.add(flowerPotDesigned.scene);
+
+        // singleSofa.scene.position.x = -1.51;
+        // singleSofa.scene.position.y = 0;
+        // singleSofa.scene.position.z = 1.74;
+
+        flowerPotDesigned.scene.position.x = objData.posX;
+        flowerPotDesigned.scene.position.y = objData.posY;
+        flowerPotDesigned.scene.position.z = objData.posZ;
+
+        flowerPotDesigned.scene.scale.x = objData.scal;
+        flowerPotDesigned.scene.scale.y = objData.scal;
+        flowerPotDesigned.scene.scale.z = objData.scal;
+
+        flowerPotDesigned.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(flowerPotDesigned.scene.position, "x", -40, 40)
+        //   .name("flowerPot_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPotDesigned.scene.position, "y", -40, 40)
+        //   .name("flowerPot_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPotDesigned.scene.position, "z", -40, 40)
+        //   .name("flowerPot_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(flowerPotDesigned.scene.scale, "x", 0, 0.5)
+        //   .name("flowerPot_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPotDesigned.scene.scale, "y", 0, 0.5)
+        //   .name("flowerPot_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(flowerPotDesigned.scene.scale, "z", 0, 0.5)
+        //   .name("flowerPot_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(flowerPotDesigned.scene.rotation, "y", 0, 6)
+        //   .name("flowerPot_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getPainting1 = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      painting1,
+
+      (painting1) => {
+        this.gltf = painting1.scene;
+        this.scene.add(painting1.scene);
+
+        painting1.scene.position.x = objData.posX;
+        painting1.scene.position.y = objData.posY;
+        painting1.scene.position.z = objData.posZ;
+
+        painting1.scene.scale.x = objData.scal;
+        painting1.scene.scale.y = objData.scal;
+        painting1.scene.scale.z = objData.scal;
+
+        painting1.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(painting1.scene.position, "x", -40, 40)
+        //   .name("painting1_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(painting1.scene.position, "y", -40, 40)
+        //   .name("painting1_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(painting1.scene.position, "z", -40, 40)
+        //   .name("painting1_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(painting1.scene.scale, "x", -20, 20)
+        //   .name("painting1_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(painting1.scene.scale, "y", -20, 20)
+        //   .name("painting1_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(painting1.scene.scale, "z", -20, 20)
+        //   .name("painting1_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(painting1.scene.rotation, "y", -6, 6)
+        //   .name("painting1_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getPainting2 = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      painting2,
+
+      (painting2) => {
+        this.gltf = painting2.scene;
+        this.scene.add(painting2.scene);
+
+        painting2.scene.position.x = objData.posX;
+        painting2.scene.position.y = objData.posY;
+        painting2.scene.position.z = objData.posZ;
+
+        painting2.scene.scale.x = objData.scal;
+        painting2.scene.scale.y = objData.scal;
+        painting2.scene.scale.z = objData.scal * 2;
+
+        painting2.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(painting2.scene.position, "x", -40, 40)
+        //   .name("painting1_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(painting2.scene.position, "y", -40, 40)
+        //   .name("painting1_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(painting2.scene.position, "z", -40, 40)
+        //   .name("painting1_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(painting2.scene.scale, "x", 0, 0.5)
+        //   .name("painting1_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(painting2.scene.scale, "y", 0, 0.5)
+        //   .name("painting1_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(painting2.scene.scale, "z", 0, 0.5)
+        //   .name("painting1_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(painting2.scene.rotation, "y", -6, 6)
+        //   .name("painting1_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getCabinetFull = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      cabinetFull,
+
+      (cabinetFull) => {
+        this.gltf = cabinetFull.scene;
+        this.scene.add(cabinetFull.scene);
+
+        cabinetFull.scene.position.x = objData.posX;
+        cabinetFull.scene.position.y = objData.posY;
+        cabinetFull.scene.position.z = objData.posZ;
+
+        cabinetFull.scene.scale.x = objData.scal;
+        cabinetFull.scene.scale.y = objData.scal;
+        cabinetFull.scene.scale.z = objData.scal - 3.162;
+
+        cabinetFull.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(cabinetFull.scene.position, "x", -40, 40)
+        //   .name("cabinetFull_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(cabinetFull.scene.position, "y", -40, 40)
+        //   .name("cabinetFull_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(cabinetFull.scene.position, "z", -40, 40)
+        //   .name("cabinetFull_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(cabinetFull.scene.scale, "x", 0, 30)
+        //   .name("cabinetFull_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(cabinetFull.scene.scale, "y", 0, 30)
+        //   .name("cabinetFull_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(cabinetFull.scene.scale, "z", 0, 30)
+        //   .name("cabinetFull_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(cabinetFull.scene.rotation, "y", 0, 6)
+        //   .name("cabinetFull_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getSink = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      sink,
+
+      (sink) => {
+        this.gltf = sink.scene;
+        this.scene.add(sink.scene);
+
+        sink.scene.position.x = objData.posX;
+        sink.scene.position.y = objData.posY;
+        sink.scene.position.z = objData.posZ;
+
+        sink.scene.scale.x = objData.scal;
+        sink.scene.scale.y = objData.scal + 0.001;
+        sink.scene.scale.z = objData.scal + 0.002;
+
+        sink.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(sink.scene.position, "x", -40, 40)
+        //   .name("cabinetFull_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(sink.scene.position, "y", -40, 40)
+        //   .name("cabinetFull_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(sink.scene.position, "z", -40, 40)
+        //   .name("cabinetFull_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(sink.scene.scale, "x", 0, 0.05)
+        //   .name("cabinetFull_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(sink.scene.scale, "y", 0, 0.05)
+        //   .name("cabinetFull_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(sink.scene.scale, "z", 0, 0.05)
+        //   .name("cabinetFull_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(sink.scene.rotation, "y", 0, 6)
+        //   .name("cabinetFull_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getFridge = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      fridge,
+
+      (fridge) => {
+        this.gltf = fridge.scene;
+        this.scene.add(fridge.scene);
+
+        fridge.scene.position.x = objData.posX;
+        fridge.scene.position.y = objData.posY;
+        fridge.scene.position.z = objData.posZ;
+
+        fridge.scene.scale.x = objData.scal;
+        fridge.scene.scale.y = objData.scal;
+        fridge.scene.scale.z = objData.scal;
+
+        fridge.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(fridge.scene.position, "x", -40, 40)
+        //   .name("fridge_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(fridge.scene.position, "y", -40, 40)
+        //   .name("fridge_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(fridge.scene.position, "z", -40, 40)
+        //   .name("fridge_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(fridge.scene.scale, "x", 0, 30)
+        //   .name("fridge_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(fridge.scene.scale, "y", 0, 30)
+        //   .name("fridge_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(fridge.scene.scale, "z", 0, 30)
+        //   .name("fridge_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(fridge.scene.rotation, "y", 0, 6)
+        //   .name("fridge_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
   // animation
   startAnimationLoop = () => {
     this.renderer.render(this.scene, this.camera);
