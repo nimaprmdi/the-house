@@ -23,6 +23,11 @@ import painting2 from "../../assests/objects/painting2.glb"; // GLB FILE
 import cabinetFull from "../../assests/objects/cabinetFull.glb"; // GLB FILE
 import sink from "../../assests/objects/sink.glb"; // GLB FILE
 import fridge from "../../assests/objects/fridge.glb"; // GLB FILE
+import toilet from "../../assests/objects/toilet.glb"; // GLB FILE
+import shower from "../../assests/objects/shower.glb"; // GLB FILE
+import wallDevider from "../../assests/objects/wallDevider.glb"; // GLB FILE
+import wallDevider2 from "../../assests/objects/wallDevider2.glb"; // GLB FILE
+import bed from "../../assests/objects/bed.glb"; // GLB FILE
 
 import ceramic from "../../assests/textures/ceramic.jpg";
 import concrete from "../../assests/textures/wall.jpg";
@@ -40,14 +45,12 @@ class WebGL extends Component {
       posZ: 13.729,
       rotY: 6.765,
     },
-
     singleSofaRight: {
       posX: -2.164,
       posY: 0,
       posZ: 13.702,
       rotY: 5.696,
     },
-
     table: {
       scalX: 0.1665,
       scalY: 0.1231,
@@ -57,27 +60,42 @@ class WebGL extends Component {
       posZ: -16.75,
       rotY: 3.15,
     },
-
     gamingTable: {
-      scalX: 2.57,
-      scalY: 2.78,
-      scalZ: 2.89,
-      posX: -5.48,
-      posY: 6.66,
-      posZ: 25.73,
-      rotY: 3.2,
+      scalX: 0.55,
+      scalY: 0.7,
+      scalZ: 0.6,
+      posX: 6.23,
+      posY: 7.53,
+      posZ: 4.72,
+      rotY: 0,
     },
-
+    gamingTable2: {
+      scalX: 0.55,
+      scalY: 0.7,
+      scalZ: 0.6,
+      posX: -12.67,
+      posY: 8.05,
+      posZ: 7.59,
+      rotY: 3.24,
+    },
     chair: {
-      scalX: 0.8,
-      scalY: 0.8,
-      scalZ: 0.8,
-      posX: -9.82,
-      posY: 0,
-      posZ: 20.53,
-      rotY: 1.13,
+      scalX: 0.2,
+      scalY: 0.2,
+      scalZ: 0.2,
+      posX: 5.82,
+      posY: 6.37,
+      posZ: 6.64,
+      rotY: 2.79,
     },
-
+    chair2: {
+      scalX: 0.2,
+      scalY: 0.2,
+      scalZ: 0.2,
+      posX: -11.27,
+      posY: 6.37,
+      posZ: 5.17,
+      rotY: -0.57,
+    },
     diningTable1: {
       posX: -2.105,
       posY: 0.4,
@@ -118,7 +136,6 @@ class WebGL extends Component {
       scal: 5,
       rotY: 1.499,
     },
-
     painting1: {
       posX: -6.795,
       posY: 2.892,
@@ -126,7 +143,6 @@ class WebGL extends Component {
       scal: 2,
       rotY: 1.577,
     },
-
     painting2: {
       posX: 0.131,
       posY: 2.056,
@@ -134,7 +150,6 @@ class WebGL extends Component {
       scal: 3,
       rotY: 0.015,
     },
-
     painting3: {
       posX: -10.956,
       posY: 2.191,
@@ -142,7 +157,6 @@ class WebGL extends Component {
       scal: 3,
       rotY: 1.6,
     },
-
     paintingBig1: {
       posX: -4.78,
       posY: 3.271,
@@ -150,7 +164,6 @@ class WebGL extends Component {
       scal: 0.06,
       rotY: 0.015,
     },
-
     cabinetFull: {
       posX: -5.094,
       posY: 0.45,
@@ -172,7 +185,6 @@ class WebGL extends Component {
       scal: 0.5,
       rotY: 3.132,
     },
-
     flowerPotDesigned1: {
       posX: 4.89,
       posY: 0.373,
@@ -186,6 +198,48 @@ class WebGL extends Component {
       posZ: -7.524,
       scal: 0.009,
       rotY: 5.06,
+    },
+    toilet: {
+      posX: -3.291,
+      posY: 6.963,
+      posZ: 6.629,
+      scal: 0.4,
+      rotY: 4.768,
+    },
+    shower: {
+      posX: -6.116,
+      posY: 6.143,
+      posZ: 8.221,
+      scal: 0.058,
+      rotY: 1.598,
+    },
+    wallDevider: {
+      posX: -1.733,
+      posY: 2.758,
+      posZ: 4.64,
+      scal: 1,
+      rotY: 3.153,
+    },
+    wallDevider2: {
+      posX: 1.131,
+      posY: 6.345,
+      posZ: -0.389,
+      scal: 1,
+      rotY: 1.569,
+    },
+    bed: {
+      posX: 4.479,
+      posY: 7.42,
+      posZ: 1.363,
+      scal: 0.01,
+      rotY: 3.171,
+    },
+    bed2: {
+      posX: -11.39,
+      posY: 7.4,
+      posZ: -1.26,
+      scal: 0.01,
+      rotY: 3.2,
     },
   };
 
@@ -247,6 +301,14 @@ class WebGL extends Component {
       fridge,
       flowerPotDesigned1,
       flowerPotDesigned2,
+      toilet,
+      shower,
+      wallDevider,
+      wallDevider2,
+      bed,
+      bed2,
+      chair2,
+      gamingTable2,
     } = this.state;
 
     // adding fog
@@ -287,17 +349,20 @@ class WebGL extends Component {
     //adding objects
     this.getHome();
 
-    this.getTv();
-    this.getTvStand();
+    // main room
     this.getDiningTable(diningTable1);
     this.getDiningTable(diningTable2);
+
+    // rest room
+    this.getTv();
+    this.getTvStand();
     this.getSofa();
     this.getSingleSofa(singleSofaLeft);
     this.getSingleSofa(singleSofaRight);
-    // this.getTable(table);
-    // this.getGamingTable(gamingTable);
-    // this.getChair(chair);
+
     // this.getBoxObj();
+
+    // global
     this.getFlowerPot(flowerPot1);
     this.getFlowerPot(flowerPot2);
     this.getFlowerPot(flowerPot3);
@@ -310,13 +375,32 @@ class WebGL extends Component {
     this.getPainting1(painting2);
     this.getPainting1(painting3);
 
+    // kitchen
     this.getPainting2(paintingBig1);
-
     this.getCabinetFull(cabinetFull);
-
     this.getSink(sink);
-
     this.getFridge(fridge);
+
+    // toilet / bath
+    this.getToilet(toilet);
+    this.getShower(shower);
+    this.getWallDevider(wallDevider);
+
+    // room left/top
+    //this.getTable(table);
+    this.getGamingTable(gamingTable);
+    this.getChair(chair);
+
+    //room left/bottom
+    this.getWallDevider2(wallDevider2);
+    this.getBed(bed);
+
+    // room right/bottom
+    this.getBed(bed2);
+
+    //room right/top
+    this.getChair(chair2);
+    this.getGamingTable(gamingTable2);
 
     // adding spotLight
     const lightLeft = new THREE.PointLight(0xffffff, 1, 50);
@@ -361,26 +445,31 @@ class WebGL extends Component {
     );
     rectLightMesh.add(rectLightMeshBack);
 
-    // gui.add(lightLeft.position, "x", -30, 30).name("x");
-    // gui.add(lightLeft.position, "y", -30, 30).name("y");
-    // gui.add(lightLeft.position, "z", -30, 30).name("z");
+    const gui = new GUI();
+    gui.add(lightLeft.position, "x", 0, 15).name("x");
+    gui.add(lightLeft.position, "y", 0, 15).name("y");
+    gui.add(lightLeft.position, "z", 0, 15).name("z");
 
-    // gui.add(lightLeft, "intensity", 0, 30).name("intensity");
-    // gui.add(lightLeft, "distance", 0, 150).name("distance");
+    gui.add(lightLeft.rotation, "x", 0, 15).name("x");
+    gui.add(lightLeft.rotation, "y", 0, 15).name("y");
+    gui.add(lightLeft.rotation, "z", 0, 15).name("z");
+
+    gui.add(lightLeft, "intensity", 0, 30).name("intensity");
+    gui.add(lightLeft, "distance", 0, 150).name("distance");
 
     // the sun ( helper lights)
-    const lights = [];
-    lights[0] = new THREE.PointLight(0xffffff, 1, 0);
-    lights[1] = new THREE.PointLight(0xffffff, 1, 0);
-    lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+    // const lights = [];
+    // lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+    // lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+    // lights[2] = new THREE.PointLight(0xffffff, 1, 0);
 
-    lights[0].position.set(0, 200, 0);
-    lights[1].position.set(100, 200, 100);
-    lights[2].position.set(-100, -200, -100);
+    // lights[0].position.set(0, 200, 0);
+    // lights[1].position.set(100, 200, 100);
+    // lights[2].position.set(-100, -200, -100);
 
-    this.scene.add(lights[0]);
-    this.scene.add(lights[1]);
-    this.scene.add(lights[2]);
+    // this.scene.add(lights[0]);
+    // this.scene.add(lights[1]);
+    // this.scene.add(lights[2]);
   };
 
   // fogging
@@ -982,9 +1071,9 @@ class WebGL extends Component {
         gamingTable.scene.rotation.y = objData.rotY;
 
         // const gui = new GUI();
-        // gui.add(gamingTable.scene.scale, "x", -5, 5).name("gaming");
-        // gui.add(gamingTable.scene.scale, "y", -5, 5).name("gaming");
-        // gui.add(gamingTable.scene.scale, "z", -5, 5).name("gaming");
+        // gui.add(gamingTable.scene.scale, "x", 0, 5).name("gaming");
+        // gui.add(gamingTable.scene.scale, "y", 0, 5).name("gaming");
+        // gui.add(gamingTable.scene.scale, "z", 0, 5).name("gaming");
 
         // gui
         //   .add(gamingTable.scene.position, "x", -40, 40)
@@ -999,7 +1088,7 @@ class WebGL extends Component {
         //   .name("scal")
         //   .step(0.01);
 
-        // gui.add(gamingTable.scene.rotation, "y", -6, 6).name("scal").step(0.01);
+        // gui.add(gamingTable.scene.rotation, "y", 0, 6).name("scal").step(0.01);
       },
       undefined,
 
@@ -1034,15 +1123,24 @@ class WebGL extends Component {
         chair.scene.rotation.y = objData.rotY;
 
         // const gui = new GUI();
-        // gui.add(chair.scene.scale, "x", -5, 5).name("gaming");
-        // gui.add(chair.scene.scale, "y", -5, 5).name("gaming");
-        // gui.add(chair.scene.scale, "z", -5, 5).name("gaming");
+        // gui.add(chair.scene.scale, "x", -5, 5).name("scale_x");
+        // gui.add(chair.scene.scale, "y", -5, 5).name("scale_y");
+        // gui.add(chair.scene.scale, "z", -5, 5).name("scale_z");
 
-        // gui.add(chair.scene.position, "x", -40, 40).name("scal").step(0.01);
-        // gui.add(chair.scene.position, "y", -40, 40).name("scal").step(0.01);
-        // gui.add(chair.scene.position, "z", -40, 40).name("scal").step(0.01);
+        // gui
+        //   .add(chair.scene.position, "x", -40, 40)
+        //   .name("postion_x")
+        //   .step(0.01);
+        // gui
+        //   .add(chair.scene.position, "y", -40, 40)
+        //   .name("postion_y")
+        //   .step(0.01);
+        // gui
+        //   .add(chair.scene.position, "z", -40, 40)
+        //   .name("postion_z")
+        //   .step(0.01);
 
-        // gui.add(chair.scene.rotation, "y", -6, 6).name("scal").step(0.01);
+        // gui.add(chair.scene.rotation, "y", -6, 6).name("rotation_y").step(0.01);
       },
       undefined,
 
@@ -1486,6 +1584,303 @@ class WebGL extends Component {
       }
     );
   };
+
+  getToilet = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      toilet,
+
+      (toilet) => {
+        this.gltf = toilet.scene;
+        this.scene.add(toilet.scene);
+
+        toilet.scene.position.x = objData.posX;
+        toilet.scene.position.y = objData.posY;
+        toilet.scene.position.z = objData.posZ;
+
+        toilet.scene.scale.x = objData.scal;
+        toilet.scene.scale.y = objData.scal;
+        toilet.scene.scale.z = objData.scal;
+
+        toilet.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(toilet.scene.position, "x", -40, 40)
+        //   .name("toilet_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(toilet.scene.position, "y", -40, 40)
+        //   .name("toilet_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(toilet.scene.position, "z", -40, 40)
+        //   .name("toilet_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(toilet.scene.scale, "x", 0, 30)
+        //   .name("toilet_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(toilet.scene.scale, "y", 0, 30)
+        //   .name("toilet_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(toilet.scene.scale, "z", 0, 30)
+        //   .name("toilet_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(toilet.scene.rotation, "y", 0, 6)
+        //   .name("toilet_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getShower = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      shower,
+
+      (shower) => {
+        this.gltf = shower.scene;
+        this.scene.add(shower.scene);
+
+        shower.scene.position.x = objData.posX;
+        shower.scene.position.y = objData.posY;
+        shower.scene.position.z = objData.posZ;
+
+        shower.scene.scale.x = objData.scal;
+        shower.scene.scale.y = objData.scal;
+        shower.scene.scale.z = objData.scal;
+
+        shower.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(shower.scene.position, "x", -40, 40)
+        //   .name("shower_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(shower.scene.position, "y", -40, 40)
+        //   .name("shower_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(shower.scene.position, "z", -40, 40)
+        //   .name("shower_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(shower.scene.scale, "x", 0, 30)
+        //   .name("shower_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(shower.scene.scale, "y", 0, 30)
+        //   .name("shower_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(shower.scene.scale, "z", 0, 30)
+        //   .name("shower_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(shower.scene.rotation, "y", 0, 6)
+        //   .name("shower_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getWallDevider = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      wallDevider,
+
+      (wallDevider) => {
+        this.gltf = wallDevider.scene;
+        this.scene.add(wallDevider.scene);
+
+        wallDevider.scene.position.x = objData.posX;
+        wallDevider.scene.position.y = objData.posY;
+        wallDevider.scene.position.z = objData.posZ;
+
+        wallDevider.scene.scale.x = objData.scal;
+        wallDevider.scene.scale.y = objData.scal + 0.38;
+        wallDevider.scene.scale.z = objData.scal;
+
+        wallDevider.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(wallDevider.scene.position, "x", -40, 40)
+        //   .name("shower_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider.scene.position, "y", -40, 40)
+        //   .name("shower_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider.scene.position, "z", -40, 40)
+        //   .name("shower_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(wallDevider.scene.scale, "x", 0, 30)
+        //   .name("shower_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider.scene.scale, "y", 0, 30)
+        //   .name("shower_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider.scene.scale, "z", 0, 30)
+        //   .name("shower_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(wallDevider.scene.rotation, "y", 0, 6)
+        //   .name("shower_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getWallDevider2 = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      wallDevider2,
+
+      (wallDevider2) => {
+        this.gltf = wallDevider2.scene;
+        this.scene.add(wallDevider2.scene);
+
+        wallDevider2.scene.position.x = objData.posX;
+        wallDevider2.scene.position.y = objData.posY;
+        wallDevider2.scene.position.z = objData.posZ;
+
+        wallDevider2.scene.scale.x = objData.scal;
+        wallDevider2.scene.scale.y = objData.scal + 0.251;
+        wallDevider2.scene.scale.z = objData.scal;
+
+        wallDevider2.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(wallDevider2.scene.position, "x", -40, 40)
+        //   .name("wallDevider2_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider2.scene.position, "y", -40, 40)
+        //   .name("wallDevider2_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider2.scene.position, "z", -40, 40)
+        //   .name("wallDevider2_position_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(wallDevider2.scene.scale, "x", 0, 30)
+        //   .name("wallDevider2_scale_x")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider2.scene.scale, "y", 0, 30)
+        //   .name("wallDevider2_scale_y")
+        //   .step(0.001);
+        // gui
+        //   .add(wallDevider2.scene.scale, "z", 0, 30)
+        //   .name("wallDevider2_scale_z")
+        //   .step(0.001);
+
+        // gui
+        //   .add(wallDevider2.scene.rotation, "y", 0, 6)
+        //   .name("wallDevider2_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getBed = (objData) => {
+    this.loader = new GLTFLoader();
+
+    this.loader.load(
+      bed,
+
+      (bed) => {
+        this.gltf = bed.scene;
+        this.scene.add(bed.scene);
+
+        bed.scene.position.x = objData.posX;
+        bed.scene.position.y = objData.posY;
+        bed.scene.position.z = objData.posZ;
+
+        bed.scene.scale.x = objData.scal;
+        bed.scene.scale.y = objData.scal;
+        bed.scene.scale.z = objData.scal;
+
+        bed.scene.rotation.y = objData.rotY;
+
+        // const gui = new GUI();
+
+        // gui
+        //   .add(bed.scene.position, "x", -40, 40)
+        //   .name("bed_position_x")
+        //   .step(0.001);
+        // gui
+        //   .add(bed.scene.position, "y", -40, 40)
+        //   .name("bed_position_y")
+        //   .step(0.001);
+        // gui
+        //   .add(bed.scene.position, "z", -40, 40)
+        //   .name("bed_position_z")
+        //   .step(0.001);
+
+        // gui.add(bed.scene.scale, "x", 0, 30).name("bed_scale_x").step(0.001);
+        // gui.add(bed.scene.scale, "y", 0, 30).name("bed_scale_y").step(0.001);
+        // gui.add(bed.scene.scale, "z", 0, 30).name("bed_scale_z").step(0.001);
+
+        // gui
+        //   .add(bed.scene.rotation, "y", 0, 6)
+        //   .name("bed_rotation_y")
+        //   .step(0.001);
+      },
+      undefined,
+
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
   // animation
   startAnimationLoop = () => {
     this.renderer.render(this.scene, this.camera);
